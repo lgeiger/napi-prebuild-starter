@@ -4,6 +4,10 @@ jobs:
       vmImage: "ubuntu 16.04"
     steps:
       - template: ci-steps.yml
+      - task: PublishBuildArtifacts@1
+        inputs:
+          pathtoPublish: '$(System.DefaultWorkingDirectory)/prebuilds/linux-x64'
+          artifactName: LinuxBinary
 
   - job: Windows
     pool:
@@ -11,11 +15,47 @@ jobs:
     steps:
       - task: UsePythonVersion@0
         inputs:
-          versionSpec: '2.7' 
+          versionSpec: '2.7'
       - template: ci-steps.yml
+      - task: PublishBuildArtifacts@1
+        inputs:
+          pathtoPublish: '$(System.DefaultWorkingDirectory)/prebuilds/win32-x64'
+          artifactName: WindowsBinary
 
-  - job: mcOS
+  - job: macOS
     pool:
       vmImage: "macOS-10.13"
     steps:
       - template: ci-steps.yml
+      - task: PublishBuildArtifacts@1
+        inputs:
+          pathtoPublish: '$(System.DefaultWorkingDirectory)/prebuilds/darwin-x64'
+          artifactName: macOSBinary
+
+  - job: Publish
+    pool:
+      vmImage: 'ubuntu-16.04'
+    steps:
+    - task: DownloadBuildArtifacts@0
+      displayName: 'Download Linux Artifacts'
+      inputs:
+        artifactName: LinuxBinary
+        downloadPath: '$(System.DefaultWorkingDirectory)/prebuilds/linux-x64'
+
+    - task: DownloadBuildArtifacts@0
+      displayName: 'Download macOS Artifacts'
+      inputs:
+        artifactName: macOSBinary
+        downloadPath: '$(System.DefaultWorkingDirectory)/prebuilds/darwin-x64'
+
+    - task: DownloadBuildArtifacts@0
+      displayName: 'Download Windows Artifacts'
+      inputs:
+        artifactName: WindowsBinary
+        downloadPath: '$(System.DefaultWorkingDirectory)/prebuilds/win32-x64'
+
+    dependsOn:
+    - Windows
+    - Linux
+    - macOS
+    condition: succeeded()
