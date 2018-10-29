@@ -1,0 +1,14 @@
+{
+  "name": "@lgeiger/napi-prebuild-starter",
+  "version": "0.0.0",
+  "description": "Node.js Addons Example using prebuildify",
+  "main": "hello.js",
+  "dependencies": {
+    "bindings": "^1.3.0",
+    "node-addon-api": "^1.5.0"
+  },
+  "scripts": {
+    "test": "node hello.js"
+  },
+  "gypfile": true
+}
