@@ -1,3 +1,7 @@
+trigger:
+  - master
+  - refs/tags/*
+
 jobs:
 - template: ci-jobs.yml
 
@@ -42,4 +46,4 @@ jobs:
   - Windows
   - Linux
   - macOS
-  condition: and(succeeded(), startsWith(variables['Build.SourceBranch'], 'refs/tags/'))
+  condition: and(succeeded(), startsWith(variables['Build.SourceBranch'], 'refs/tags/v'))
