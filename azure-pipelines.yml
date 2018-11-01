@@ -41,4 +41,4 @@ jobs:
   - Windows
   - Linux
   - macOS
-  condition: succeeded()
+  condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
