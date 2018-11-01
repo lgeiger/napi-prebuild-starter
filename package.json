@@ -11,6 +11,7 @@
     "node-gyp-build": "3.4.0"
   },
   "scripts": {
+    "install": "node-gyp-build",
     "prebuild": "prebuildify --napi --strip",
     "test": "node hello.js"
   },
