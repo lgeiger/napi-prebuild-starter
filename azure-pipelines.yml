@@ -1,7 +1,3 @@
-trigger:
-  - master
-  - refs/tags/*
-
 jobs:
 - template: ci-jobs.yml
 
@@ -39,11 +35,11 @@ jobs:
       mv LinuxBinary/* prebuilds
       mv macOSBinary/* prebuilds
       mv WindowsBinary/* prebuilds
-  - script: npm publish
+  - script: npm publish || true
     env:
       NPM_TOKEN: $(secret_npm_token)
   dependsOn:
   - Windows
   - Linux
   - macOS
-  condition: and(succeeded(), startsWith(variables['Build.SourceBranch'], 'refs/tags/v'))
+  condition: succeeded()
