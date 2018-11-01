@@ -40,4 +40,4 @@ jobs:
   - Windows
   - Linux
   - macOS
-  condition: succeeded()
+  condition: and(succeeded(), startsWith(variables['Build.SourceBranch'], 'refs/tags/v'))
