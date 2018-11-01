@@ -35,9 +35,8 @@ jobs:
       mv LinuxBinary/* prebuilds
       mv macOSBinary/* prebuilds
       mv WindowsBinary/* prebuilds
+  - script: echo //registry.npmjs.org/:_authToken=$(secret_npm_token) > .npmrc
   - script: npm publish || true
-    env:
-      NPM_TOKEN: $(secret_npm_token)
   dependsOn:
   - Windows
   - Linux
