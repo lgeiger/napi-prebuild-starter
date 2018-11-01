@@ -1,5 +1,8 @@
 {
   "name": "@lgeiger/napi-prebuild-starter",
+  "publishConfig": {
+    "access": "public"
+  },
   "version": "0.0.0",
   "description": "Node.js Addons Example using prebuildify",
   "main": "hello.js",
