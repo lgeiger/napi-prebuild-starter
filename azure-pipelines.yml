@@ -35,7 +35,9 @@ jobs:
       mv LinuxBinary/* prebuilds
       mv macOSBinary/* prebuilds
       mv WindowsBinary/* prebuilds
-  - script: ls prebuilds
+  - script: npm publish
+    env:
+      NPM_TOKEN: $(secret_npm_token)
   dependsOn:
   - Windows
   - Linux
