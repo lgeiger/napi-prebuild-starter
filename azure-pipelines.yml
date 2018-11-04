@@ -22,25 +22,9 @@ jobs:
     vmImage: 'ubuntu-16.04'
   steps:
   - task: DownloadBuildArtifacts@0
-    displayName: 'Download Linux Artifacts'
     inputs:
-      artifactName: LinuxBinary
+      artifactName: prebuilds
       downloadPath: '$(System.DefaultWorkingDirectory)'
-  - task: DownloadBuildArtifacts@0
-    displayName: 'Download macOS Artifacts'
-    inputs:
-      artifactName: macOSBinary
-      downloadPath: '$(System.DefaultWorkingDirectory)'
-  - task: DownloadBuildArtifacts@0
-    displayName: 'Download Windows Artifacts'
-    inputs:
-      artifactName: WindowsBinary
-      downloadPath: '$(System.DefaultWorkingDirectory)'
-  - script: |
-      mkdir prebuilds
-      mv LinuxBinary/* prebuilds
-      mv macOSBinary/* prebuilds
-      mv WindowsBinary/* prebuilds
   - script: echo //registry.npmjs.org/:_authToken=$(secret_npm_token) > .npmrc
   - script: npm publish || true
   dependsOn:
