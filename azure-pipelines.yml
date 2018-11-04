@@ -1,15 +1,21 @@
 jobs:
-- template: ci-jobs.yml
+- job: Linux
+  pool:
+    vmImage: 'ubuntu-16.04'
+  steps:
+  - template: ci-steps.yml
 
-- template: ci-jobs.yml
-  parameters:
-    name: macOS
+- job: macOS
+  pool:
     vmImage: 'macOS-10.13'
+  steps:
+  - template: ci-steps.yml
 
-- template: ci-jobs.yml
-  parameters:
-    name: Windows
+- job: Windows
+  pool:
     vmImage: 'vs2017-win2016'
+  steps:
+  - template: ci-steps.yml
 
 - job: Publish
   pool:
