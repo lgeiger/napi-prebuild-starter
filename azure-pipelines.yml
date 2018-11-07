@@ -1,34 +1,34 @@
 jobs:
-- job: Linux
-  pool:
-    vmImage: 'ubuntu-16.04'
-  steps:
-  - template: ci-steps.yml
+  - job: Linux
+    pool:
+      vmImage: "ubuntu-16.04"
+    steps:
+      - template: ci-steps.yml
 
-- job: macOS
-  pool:
-    vmImage: 'macOS-10.13'
-  steps:
-  - template: ci-steps.yml
+  - job: macOS
+    pool:
+      vmImage: "macOS-10.13"
+    steps:
+      - template: ci-steps.yml
 
-- job: Windows
-  pool:
-    vmImage: 'vs2017-win2016'
-  steps:
-  - template: ci-steps.yml
+  - job: Windows
+    pool:
+      vmImage: "vs2017-win2016"
+    steps:
+      - template: ci-steps.yml
 
-- job: Publish
-  pool:
-    vmImage: 'ubuntu-16.04'
-  steps:
-  - task: DownloadBuildArtifacts@0
-    inputs:
-      artifactName: prebuilds
-      downloadPath: '$(System.DefaultWorkingDirectory)'
-  - script: echo //registry.npmjs.org/:_authToken=$(secret_npm_token) > .npmrc
-  - script: npm publish || true
-  dependsOn:
-  - Windows
-  - Linux
-  - macOS
-  condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
+  - job: Publish
+    pool:
+      vmImage: "ubuntu-16.04"
+    steps:
+      - task: DownloadBuildArtifacts@0
+        inputs:
+          artifactName: prebuilds
+          downloadPath: "$(System.DefaultWorkingDirectory)"
+      - script: echo //registry.npmjs.org/:_authToken=$(secret_npm_token) > .npmrc
+      - script: npm publish || true
+    dependsOn:
+      - Windows
+      - Linux
+      - macOS
+    condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))

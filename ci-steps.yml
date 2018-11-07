@@ -1,25 +1,26 @@
 parameters:
-  arch: 'x64'
+  arch: "x64"
 
 steps:
-- task: UsePythonVersion@0
-  inputs:
-    versionSpec: '2.7'
-- task: NodeTool@0
-  inputs:
-    versionSpec: '10.x'
-  displayName: 'Install Node.js'
+  - task: UsePythonVersion@0
+    inputs:
+      versionSpec: "2.7"
 
-- script: npm install --arch=${{ parameters.arch }}
-  displayName: 'npm install'
+  - task: NodeTool@0
+    inputs:
+      versionSpec: "10.x"
+    displayName: "Install Node.js"
 
-- script: npm test
-  displayName: 'npm test'
+  - script: npm install --arch=${{ parameters.arch }}
+    displayName: "npm install"
 
-- script: npm run prebuild -- --arch=${{ parameters.arch }}
-  displayName: 'npm prebuild'
+  - script: npm test
+    displayName: "npm test"
 
-- task: PublishBuildArtifacts@1
-  inputs:
-    pathtoPublish: '$(System.DefaultWorkingDirectory)/prebuilds'
-    artifactName: 'prebuilds'
+  - script: npm run prebuild -- --arch=${{ parameters.arch }}
+    displayName: "npm prebuild"
+
+  - task: PublishBuildArtifacts@1
+    inputs:
+      pathtoPublish: "$(System.DefaultWorkingDirectory)/prebuilds"
+      artifactName: "prebuilds"
