@@ -17,6 +17,14 @@ jobs:
     steps:
       - template: ci-steps.yml
 
+  - job: Windows32
+    pool:
+      vmImage: "vs2017-win2016"
+    steps:
+      - template: ci-steps.yml
+        parameters:
+          arch: ia32
+
   - job: Publish
     pool:
       vmImage: "ubuntu-16.04"
