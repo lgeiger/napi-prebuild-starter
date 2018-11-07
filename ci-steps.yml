@@ -14,8 +14,11 @@ steps:
   - script: npm install --arch=${{ parameters.arch }}
     displayName: "npm install"
 
-  - script: npm test
-    displayName: "npm test"
+    # Azure only supports Node x64 out of the box
+    # https://github.com/Microsoft/azure-pipelines-tasks/issues/6671
+  - ${{ if eq(parameters.arch, 'x64') }}:
+    - script: npm test
+      displayName: "npm test"
 
   - script: npm run prebuild -- --arch=${{ parameters.arch }}
     displayName: "npm prebuild"
