@@ -64,9 +64,9 @@ jobs:
           artifactName: prebuilds
           downloadPath: "$(System.DefaultWorkingDirectory)"
       - script: echo //registry.npmjs.org/:_authToken=$(secret_npm_token) > .npmrc
-      - script: npm publish || true
+      - script: npm publish
     dependsOn:
       - Windows
       - Linux
       - macOS
-    condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
+    condition: and(succeeded(), startsWith(variables['Build.SourceBranch'], 'refs/tags/v'))

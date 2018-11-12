@@ -27,3 +27,4 @@ steps:
     inputs:
       pathtoPublish: "$(System.DefaultWorkingDirectory)/prebuilds"
       artifactName: "prebuilds"
+    condition: startsWith(variables['Build.SourceBranch'], 'refs/tags/v')
