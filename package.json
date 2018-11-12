@@ -3,7 +3,7 @@
   "publishConfig": {
     "access": "public"
   },
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "Node.js Addons Example using prebuildify",
   "main": "hello.js",
   "dependencies": {
